@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wl.user.dao.UserMapper">
+    <resultMap id="UserResultMap" type="com.wl.user.model.User">
+        <id column="user_id" property="user_id" jdbcType="BIGINT"/>
+        <result column="user_name" property="user_name" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="VARCHAR"/>
+        <result column="birth_place" property="birth_place" jdbcType="VARCHAR"/>
+        <result column="clazz" property="clazz" jdbcType="VARCHAR"/>
+        <result column="user_no" property="user_no" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 通过Id查询-->
+    <select id="findUserById" parameterType="Integer" resultMap="UserResultMap">
+        select * from user where user_id=#{user_id}
+    </select>
+
+    <!-- 添加用户-->
+    <insert id="addUser" parameterType="user">
+        insert into
+        USER(user_id,user_name,sex,birth_place,clazz,user_no,address)
+        VALUES(#{user_id} ,#{user_name},#{sex} ,#{birth_place}  ,#{clazz}, #{user_no} ,#{address} )
+    </insert>
+
+    <!-- 根据Id号删除-->
+    <delete id="deleteUser" parameterType="Integer">
+        delete from user where user_id=#{user_id}
+    </delete>
+
+    <!-- 根据Id修改信息-->
+    <update id="updataUser" parameterType="user">
+        UPDATE user set
+        user_name=#{user_name},sex=#{sex},birth_place=#{birth_place},clazz=#{clazz},user_no=#{user_no},address=#{address}
+        where user_id=#{user_id}
+    </update>
+    <!-- 查询所有信息-->
+    <select id="findAllUsers" resultMap="UserResultMap">
+        select * from user
+    </select>
+
+</mapper>
